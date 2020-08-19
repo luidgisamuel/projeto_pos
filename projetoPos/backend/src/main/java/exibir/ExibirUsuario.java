@@ -90,8 +90,7 @@ public class ExibirUsuario extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) 
     throws ServletException, IOException {
-        UsuarioDao ud = new UsuarioDao();
-        //int pessoa = Integer.parseInt(req.getParameter("cpf"));
+        UsuarioDao ud = new UsuarioDao();        
         Usuario user = new Usuario();         
         
         user.setNome(req.getParameter("nome"));

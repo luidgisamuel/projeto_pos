@@ -67,5 +67,38 @@ public class ExibirCategoria extends HttpServlet {
              e.printStackTrace();
          }
      }
+
+     @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) 
+    throws ServletException, IOException {
+        final CategoriaDao cd = new CategoriaDao();
+        int cat = Integer.parseInt(req.getParameter("idCategoria"));
+
+        try {
+            cd.deletar(cat);
+            System.out.println(" exluido com sucesso!");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) 
+    throws ServletException, IOException {
+        CategoriaDao cd = new CategoriaDao();        
+        Categoria cat = new Categoria();         
+        
+        cat.setNome(req.getParameter("nome"));
+        cat.setDescricao(req.getParameter("descricao"));        
+        cat.setIdCategoria(Integer.parseInt(req.getParameter("idCategoria")));
+
+        try {
+            cd.alterar(cat);
+            System.out.println(" alterado com sucesso!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }       
+    }
   
 }

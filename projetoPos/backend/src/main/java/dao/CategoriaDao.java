@@ -52,4 +52,31 @@ public class CategoriaDao {
     return lista;
   }
 
+  public void deletar(int cat) throws SQLException {
+    String query = "DELETE FROM categoria WHERE idCategoria = ?";
+
+    Connection con = new ConexaoBanco().getConnection();
+    PreparedStatement st = null;
+
+    st = con.prepareStatement(query);
+    st.setInt(1, cat);
+    st.execute();
+    st.close();
+    con.close();
+}
+
+public  void alterar(Categoria cat) throws SQLException {
+    Connection con = new ConexaoBanco().getConnection();
+    String query = "UPDATE categoria set nome=?, descricao=? where idCategoria=?";
+    
+    PreparedStatement st = con.prepareStatement(query);       
+    st.setString(1, cat.getNome());   
+    st.setString(2, cat.getDescricao());    
+    st.setInt(3, cat.getIdCategoria());
+
+    st.execute();
+    st.close();
+    con.close();
+}
+
 }

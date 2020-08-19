@@ -76,8 +76,7 @@ public class UsuarioDao {
     public  void alterar(Usuario user) throws SQLException {
         Connection con = new ConexaoBanco().getConnection();
         String query = "UPDATE usuarios set nome=?, email=?, senha=?, nascimento= ?, sexo =? where cpf=?";
-
-        //Usuario user = new Usuario();
+        
         PreparedStatement st = con.prepareStatement(query);       
         st.setString(1, user.getNome());   
         st.setString(2, user.getEmail());
