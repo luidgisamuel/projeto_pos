@@ -11,15 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import dao.UsuarioDao;
-import model.Usuario;
+import dao.CategoriaDao;
+import model.Categoria;
 
 import java.util.ArrayList;
 import java.util.List;
 
+public class ExibirCategoria extends HttpServlet {
 
-public class ExibirUsuario extends HttpServlet{
-  
   @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
             throws ServletException, IOException {
@@ -28,25 +27,24 @@ public class ExibirUsuario extends HttpServlet{
         resp.setCharacterEncoding("UTF-8");
 
         final PrintWriter saida = resp.getWriter();
-        final UsuarioDao dao = new UsuarioDao();
+        final CategoriaDao dao = new CategoriaDao();
         final Gson gson = new Gson();
-        String usuarioJsonStr = "";
+        String categoriaJsonStr = "";
 
-        List<Usuario> lstUser = new ArrayList<>();
+        List<Categoria> lstCategoria = new ArrayList<>();
 
-        try {
-            int pessoa =Integer.parseInt(req.getParameter("cpf"));
-            lstUser = dao.pesquisar(pessoa);
+        try {            
+            lstCategoria = dao.pesquisar();
         } catch (SQLException e) {            
             e.printStackTrace();
         }
         
-        for (Usuario user : lstUser) 
+        for (Categoria categoria : lstCategoria) 
         {
-           usuarioJsonStr += gson.toJson(user);
+           categoriaJsonStr += gson.toJson(categoria);
         }
 
-        saida.println(usuarioJsonStr);
+        saida.println(categoriaJsonStr);
 
         saida.flush();
         saida.close();
@@ -55,23 +53,19 @@ public class ExibirUsuario extends HttpServlet{
     @Override
     protected void doPost (HttpServletRequest req, HttpServletResponse resp)
      throws ServletException, IOException {
-         Usuario user = new Usuario();
+         Categoria categoria = new Categoria();
 
-        user.setCpf(Integer.parseInt(req.getParameter("cpf")));
-        user.setNome(req.getParameter("nome"));
-        user.setEmail(req.getParameter("email"));
-        user.setSenha(req.getParameter("senha"));
-        user.setNascimento(req.getParameter("nascimento"));
-        user.setSexo(req.getParameter("sexo"));        
+        categoria.setNome(req.getParameter("nome"));
+        categoria.setDescricao(req.getParameter("descricao"));      
        
-         UsuarioDao ud = new UsuarioDao();
+         CategoriaDao cd = new CategoriaDao();
 
          try{
-             ud.cadastrar(user);
-             System.out.println(" sucesso!");
+             cd.cadastrar(categoria);
+             System.out.println(" cadastrado com sucesso!");
          }catch (SQLException e){
              e.printStackTrace();
          }
      }
-    
+  
 }

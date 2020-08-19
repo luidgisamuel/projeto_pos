@@ -10,8 +10,28 @@
     <servlet-class>exibir.ExibirUsuario</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>exibirCategoriaServlet</servlet-name>
+    <servlet-class>exibir.ExibirCategoria</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>exibirProdutoServlet</servlet-name>
+    <servlet-class>exibir.ExibirProduto</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>exibirUsuarioServlet</servlet-name>
-    <url-pattern>/exibirusuario</url-pattern>
+    <url-pattern>/usuario</url-pattern>
+  </servlet-mapping>    
+
+  <servlet-mapping>
+    <servlet-name>exibirCategoriaServlet</servlet-name>
+    <url-pattern>/categoria</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>exibirProdutoServlet</servlet-name>
+    <url-pattern>/produto</url-pattern>
   </servlet-mapping>
 </web-app>

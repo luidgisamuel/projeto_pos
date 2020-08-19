@@ -32,7 +32,7 @@ public class UsuarioDao {
     con.close();
 }
 
-public List<Usuario> pesquisar(int cpf) throws SQLException {
+public List<Usuario> pesquisar(int pessoa) throws SQLException {
 
     Connection con = new ConexaoBanco().getConnection();
     
@@ -40,7 +40,7 @@ public List<Usuario> pesquisar(int cpf) throws SQLException {
     String query = "SELECT * FROM usuarios WHERE cpf = ?";
     
     PreparedStatement st = con.prepareStatement(query);
-    st.setInt(1, cpf);
+    st.setInt(1, pessoa);
     
     ResultSet rs = st.executeQuery();
     

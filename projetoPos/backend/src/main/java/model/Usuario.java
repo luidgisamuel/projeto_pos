@@ -1,6 +1,6 @@
 package model;
 
-public class Usuario {
+public class Usuario {  
   private int cpf;
   private String nome;
   private String email;
@@ -54,7 +54,6 @@ public class Usuario {
 
   public void setSexo(String sexo) {
     this.sexo = sexo;
-  }
- 
+  } 
   
 }
