@@ -17,12 +17,11 @@ import model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
+public class ExibirUsuario extends HttpServlet {
 
-public class ExibirUsuario extends HttpServlet{
-  
-  @Override
+    @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
 
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
@@ -35,15 +34,14 @@ public class ExibirUsuario extends HttpServlet{
         List<Usuario> lstUser = new ArrayList<>();
 
         try {
-            int pessoa =Integer.parseInt(req.getParameter("cpf"));
+            int pessoa = Integer.parseInt(req.getParameter("cpf"));
             lstUser = dao.pesquisar(pessoa);
-        } catch (SQLException e) {            
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-        for (Usuario user : lstUser) 
-        {
-           usuarioJsonStr += gson.toJson(user);
+
+        for (Usuario user : lstUser) {
+            usuarioJsonStr += gson.toJson(user);
         }
 
         saida.println(usuarioJsonStr);
@@ -51,27 +49,63 @@ public class ExibirUsuario extends HttpServlet{
         saida.flush();
         saida.close();
     }
-    
+
     @Override
-    protected void doPost (HttpServletRequest req, HttpServletResponse resp)
-     throws ServletException, IOException {
-         Usuario user = new Usuario();
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
+    throws ServletException, IOException {
+        Usuario user = new Usuario();
 
         user.setCpf(Integer.parseInt(req.getParameter("cpf")));
         user.setNome(req.getParameter("nome"));
         user.setEmail(req.getParameter("email"));
         user.setSenha(req.getParameter("senha"));
         user.setNascimento(req.getParameter("nascimento"));
-        user.setSexo(req.getParameter("sexo"));        
-       
-         UsuarioDao ud = new UsuarioDao();
+        user.setSexo(req.getParameter("sexo"));
 
-         try{
-             ud.cadastrar(user);
-             System.out.println(" sucesso!");
-         }catch (SQLException e){
-             e.printStackTrace();
-         }
-     }
-    
+        UsuarioDao ud = new UsuarioDao();
+
+        try {
+            ud.cadastrar(user);
+            System.out.println(" sucesso!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) 
+    throws ServletException, IOException {
+        final UsuarioDao ud = new UsuarioDao();
+        int pessoa = Integer.parseInt(req.getParameter("cpf"));
+
+        try {
+            ud.deletar(pessoa);
+            System.out.println(" exluido com sucesso!");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) 
+    throws ServletException, IOException {
+        UsuarioDao ud = new UsuarioDao();
+        //int pessoa = Integer.parseInt(req.getParameter("cpf"));
+        Usuario user = new Usuario();         
+        
+        user.setNome(req.getParameter("nome"));
+        user.setEmail(req.getParameter("email"));
+        user.setSenha(req.getParameter("senha"));
+        user.setNascimento(req.getParameter("nascimento"));
+        user.setSexo(req.getParameter("sexo"));   
+        user.setCpf(Integer.parseInt(req.getParameter("cpf")));
+
+        try {
+            ud.alterar(user);
+            System.out.println(" alterado com sucesso!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }       
+    }
 }
