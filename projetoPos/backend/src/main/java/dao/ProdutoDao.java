@@ -63,6 +63,35 @@ public class ProdutoDao {
         }
 
         return lista;
+    }
 
+    public void deletar(int prod) throws SQLException {
+        String query = "DELETE FROM produtos WHERE idProduto= ?";
+
+        Connection con = new ConexaoBanco().getConnection();
+        PreparedStatement st = null;
+
+        st = con.prepareStatement(query);
+        st.setInt(1, prod);
+        st.execute();
+        st.close();
+        con.close();
+    }
+
+    public  void alterar(Produto prod) throws SQLException {
+        Connection con = new ConexaoBanco().getConnection();
+        String query = "UPDATE produtos set idCategoria=?, preco=?, nome=?, imagem=?, quantidade= ?, prodDescricao =?  where idProduto=?";        
+        PreparedStatement st = con.prepareStatement(query);
+        st.setInt(1, prod.getCategoria().getIdCategoria());
+        st.setDouble(2, prod.getPreco());
+        st.setString(3, prod.getNome());
+        st.setString(4, prod.getImagem());
+        st.setInt(5, prod.getQuantidade());
+        st.setString(6, prod.getProdDescricao());       
+        st.setInt(7, prod.getIdProduto());
+
+        st.execute();
+        st.close();
+        con.close();
     }
 }

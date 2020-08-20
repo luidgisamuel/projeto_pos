@@ -1,4 +1,5 @@
 package exibir;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -18,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExibirProduto extends HttpServlet {
-    
-  @Override
+
+    @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
             throws ServletException, IOException {
 
@@ -33,15 +34,14 @@ public class ExibirProduto extends HttpServlet {
 
         List<Produto> lstProd = new ArrayList<>();
 
-        try{            
-          lstProd = dao.pesquisar();
-        } catch (SQLException e){
+        try {
+            lstProd = dao.pesquisar();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        for(Produto prod : lstProd)
-        {
-            produtoJsonStr +=gson.toJson(prod);
+        for (Produto prod : lstProd) {
+            produtoJsonStr += gson.toJson(prod);
         }
         saida.println(produtoJsonStr);
 
@@ -50,8 +50,7 @@ public class ExibirProduto extends HttpServlet {
     }
 
     @Override
-    protected void doPost (HttpServletRequest req, HttpServletResponse resp)
-     throws ServletException, IOException{
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Produto prod = new Produto();
         Categoria cat = new Categoria();
@@ -62,15 +61,53 @@ public class ExibirProduto extends HttpServlet {
         prod.setNome(req.getParameter("nome"));
         prod.setImagem(req.getParameter("imagem"));
         prod.setQuantidade(Integer.parseInt(req.getParameter("quantidade")));
-        prod.setProdDescricao(req.getParameter("descricao"));
-
+        prod.setProdDescricao(req.getParameter("prodDescricao"));
 
         ProdutoDao pd = new ProdutoDao();
 
-        try{            
+        try {
             pd.cadastrar(prod);
             System.out.println("Cadastrado Produto com Sucesso!!!");
-        }catch (SQLException e){
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) 
+    throws ServletException, IOException {
+        final ProdutoDao pd = new ProdutoDao();
+        int prod = Integer.parseInt(req.getParameter("idProduto"));
+
+        try {
+            pd.deletar(prod);
+            System.out.println(" excluido com sucesso!");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {      
+        Produto prod = new Produto();
+        Categoria cat = new Categoria();              
+
+        cat.setIdCategoria(Integer.parseInt(req.getParameter("idCategoria")));
+        prod.setCategoria(cat);
+        prod.setPreco(Double.parseDouble(req.getParameter("preco")));
+        prod.setNome(req.getParameter("nome"));
+        prod.setImagem(req.getParameter("imagem"));
+        prod.setQuantidade(Integer.parseInt(req.getParameter("quantidade")));
+        prod.setProdDescricao(req.getParameter("prodDescricao"));
+        prod.setIdProduto(Integer.parseInt(req.getParameter("idProduto")));
+
+        ProdutoDao pd = new ProdutoDao();
+
+        try {
+            pd.alterar(prod);
+            System.out.println("alterado com Sucesso!!!");
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
