@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Usuario;
-import util.ConexaoBanco;
+import utils.ConexaoBanco;
 
 public class UsuarioDao {
 

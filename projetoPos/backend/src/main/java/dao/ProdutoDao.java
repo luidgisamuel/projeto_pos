@@ -9,7 +9,7 @@ import java.util.List;
 
 import model.Produto;
 import model.Categoria;
-import util.ConexaoBanco;
+import utils.ConexaoBanco;
 
 
 public class ProdutoDao {

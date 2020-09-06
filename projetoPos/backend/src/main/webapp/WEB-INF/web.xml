@@ -6,32 +6,42 @@
   <display-name>Archetype Created Web Application</display-name>
 
   <servlet>
-    <servlet-name>exibirUsuarioServlet</servlet-name>
-    <servlet-class>exibir.ExibirUsuario</servlet-class>
+    <servlet-name>ControllerUsuarioServlet</servlet-name>
+    <servlet-class>controllers.ControllerUsuario</servlet-class>
   </servlet>
 
   <servlet>
-    <servlet-name>exibirCategoriaServlet</servlet-name>
-    <servlet-class>exibir.ExibirCategoria</servlet-class>
+    <servlet-name>ControllerCategoriaServlet</servlet-name>
+    <servlet-class>controllers.ControllerCategoria</servlet-class>
   </servlet>
 
   <servlet>
-    <servlet-name>exibirProdutoServlet</servlet-name>
-    <servlet-class>exibir.ExibirProduto</servlet-class>
+    <servlet-name>ControllerProdutoServlet</servlet-name>
+    <servlet-class>controllers.ControllerProduto</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>ControllerUsersServlet</servlet-name>
+    <servlet-class>controllers.mongoControllers.ControllerUsers</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>exibirUsuarioServlet</servlet-name>
+    <servlet-name>ControllerUsuarioServlet</servlet-name>
     <url-pattern>/usuario</url-pattern>
   </servlet-mapping>    
 
   <servlet-mapping>
-    <servlet-name>exibirCategoriaServlet</servlet-name>
+    <servlet-name>ControllerCategoriaServlet</servlet-name>
     <url-pattern>/categoria</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>exibirProdutoServlet</servlet-name>
+    <servlet-name>ControllerProdutoServlet</servlet-name>
     <url-pattern>/produto</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ControllerUsersServlet</servlet-name>
+    <url-pattern>/users</url-pattern>
   </servlet-mapping>
 </web-app>
