@@ -25,6 +25,11 @@
     <servlet-class>controllers.mongoControllers.ControllerUsers</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>ControllerProductsServlet</servlet-name>
+    <servlet-class>controllers.mongoControllers.ControllerProducts</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>ControllerUsuarioServlet</servlet-name>
     <url-pattern>/usuario</url-pattern>
@@ -43,5 +48,10 @@
   <servlet-mapping>
     <servlet-name>ControllerUsersServlet</servlet-name>
     <url-pattern>/users</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ControllerProductsServlet</servlet-name>
+    <url-pattern>/products</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -15,6 +15,7 @@ import model.modelMongo.Users;
 import utils.Json;
 
 public class ControllerUsers extends HttpServlet {
+  private static final long serialVersionUID = 1L;
   @Override
   protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
       throws ServletException, IOException {

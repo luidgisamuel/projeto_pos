@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ControllerProduto extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
