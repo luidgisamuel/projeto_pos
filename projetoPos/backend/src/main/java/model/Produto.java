@@ -1,69 +1,95 @@
 package model;
 
 public class Produto {
-  private int idProduto;
-  private double preco;
-  private String nome;
-  private String imagem;
-  private int quantidade;
-  private String prodDescricao;
-  private Categoria cat;
+  private int ProductId;  
+  private String name;
+  private String image;
+  private String brand;
+  private Double price;
+  private  String category;
+  private int countInStock;
+  private String description;
+  private double rating;
+  private int numReviews; 
 
-  public int getIdProduto() {
-    return this.idProduto;
+  public int getProductId() {
+    return this.ProductId;
   }
 
-  public void setIdProduto(int idProduto) {
-    this.idProduto = idProduto;
+  public void setProductId(int ProductId) {
+    this.ProductId = ProductId;
   }
 
-  public Categoria getCategoria() {
-    return this.cat;
+  public String getName() {
+    return this.name;
   }
 
-  public void setCategoria(Categoria cat) {
-    this.cat = cat;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public double getPreco() {
-    return this.preco;
+  public String getImage() {
+    return this.image;
   }
 
-  public void setPreco(double preco) {
-    this.preco = preco;
+  public void setImage(String image) {
+    this.image = image;
   }
 
-  public String getNome() {
-    return this.nome;
+  public String getBrand() {
+    return this.brand;
   }
 
-  public void setNome(String nome) {
-    this.nome = nome;
+  public void setBrand(String brand) {
+    this.brand = brand;
   }
 
-  public String getImagem() {
-    return this.imagem;
+  public Double getPrice() {
+    return this.price;
   }
 
-  public void setImagem(String imagem) {
-    this.imagem = imagem;
+  public void setPrice(double price) {
+    this.price = price;
   }
 
-  public int getQuantidade() {
-    return this.quantidade;
+  public String getCategory() {
+    return this.category;
   }
 
-  public void setQuantidade(int quantidade) {
-    this.quantidade = quantidade;
+  public void setCategory(String category) {
+    this.category = category;
   }
 
-  public String getProdDescricao() {
-    return this.prodDescricao;
+  public int getCountInStock() {
+    return this.countInStock;
   }
 
-  public void setProdDescricao(String prodDescricao) {
-    this.prodDescricao = prodDescricao;
+  public void setCountInStock(int countInStock) {
+    this.countInStock = countInStock;
   }
 
-  
+  public String getDescription() {
+    return this.description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public double getRating() {
+    return this.rating;
+  }
+
+  public void setRating(double rating) {
+    this.rating = rating;
+  }
+
+  public int getNumReviews() {
+    return this.numReviews;
+  }
+
+  public void setNumReviews(int numReviews) {
+    this.numReviews = numReviews;
+  }
+
 }

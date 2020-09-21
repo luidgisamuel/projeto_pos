@@ -17,42 +17,38 @@ public class UsuarioDao {
         Connection con = new ConexaoBanco().getConnection();
 
         String query;
-        query = "INSERT INTO usuarios (cpf,nome,email,senha,nascimento,sexo) VALUES (?, ?, ?, ?, ?, ?);";
+        query = "INSERT INTO usuarios (name, email, password) VALUES (?, ?, ?);";
 
-        PreparedStatement st = con.prepareStatement(query);
-        st.setInt(1, user.getCpf());
-        st.setString(2, user.getNome());
-        st.setString(3, user.getEmail());
-        st.setString(4, user.getSenha());
-        st.setString(5, user.getNascimento());
-        st.setString(6, user.getSexo());
+        PreparedStatement st = con.prepareStatement(query);        
+        st.setString(1, user.getName());
+        st.setString(2, user.getEmail());
+        st.setString(3, user.getPassword());                
 
         st.execute();
         st.close();
         con.close();
     }
 
-    public List<Usuario> pesquisar(int pessoa) throws SQLException {
+    public List<Usuario> pesquisar(String email, String password) throws SQLException {
 
         Connection con = new ConexaoBanco().getConnection();
 
         List<Usuario> lista = new ArrayList<>();
-        String query = "SELECT * FROM usuarios WHERE cpf = ?";
+        String query = "SELECT * FROM usuarios WHERE email = ? AND password=?";
 
         PreparedStatement st = con.prepareStatement(query);
-        st.setInt(1, pessoa);
+        st.setString(1, email);
+        st.setString(2, password);
 
         ResultSet rs = st.executeQuery();
 
         while (rs.next()) {
             Usuario user = new Usuario();
 
-            user.setCpf(rs.getInt("cpf"));
-            user.setNome(rs.getString("nome"));
+            user.setId(rs.getInt("id"));
+            user.setName(rs.getString("name"));
             user.setEmail(rs.getString("email"));
-            user.setSenha(rs.getString("senha"));
-            user.setNascimento(rs.getString("nascimento"));
-            user.setSexo(rs.getString("sexo"));
+            user.setPassword(rs.getString("password"));            
 
             lista.add(user);
         }
@@ -61,7 +57,7 @@ public class UsuarioDao {
     }
 
     public void deletar(int pessoa) throws SQLException {
-        String query = "DELETE FROM usuarios WHERE cpf = ?";
+        String query = "DELETE FROM usuarios WHERE id = ?";
 
         Connection con = new ConexaoBanco().getConnection();
         PreparedStatement st = null;
@@ -75,15 +71,13 @@ public class UsuarioDao {
 
     public  void alterar(Usuario user) throws SQLException {
         Connection con = new ConexaoBanco().getConnection();
-        String query = "UPDATE usuarios set nome=?, email=?, senha=?, nascimento= ?, sexo =? where cpf=?";
+        String query = "UPDATE usuarios set name=?, email=?, password=? where id=?";
         
         PreparedStatement st = con.prepareStatement(query);       
-        st.setString(1, user.getNome());   
+        st.setString(1, user.getName());   
         st.setString(2, user.getEmail());
-        st.setString(3, user.getSenha());
-        st.setString(4, user.getNascimento());
-        st.setString(5, user.getSexo());
-        st.setInt(6, user.getCpf());
+        st.setString(3, user.getPassword());           
+        st.setInt(4, user.getId());
 
         st.execute();
         st.close();

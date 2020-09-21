@@ -1,27 +1,25 @@
 package model;
 
 public class Usuario {  
-  private int cpf;
-  private String nome;
+  private int id;
+  private String name;
   private String email;
-  private String senha;
-  private String nascimento;
-  private String sexo;
-
-  public int getCpf() {
-    return this.cpf;
+  private String password; 
+  
+  public int getId() {
+    return this.id;
   }
 
-  public void setCpf(int cpf) {
-    this.cpf = cpf;
+  public void setId(int id) {
+    this.id = id;
   }
 
-  public String getNome() {
-    return this.nome;
+  public String getName() {
+    return this.name;
   }
 
-  public void setNome(String nome) {
-    this.nome = nome;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public String getEmail() {
@@ -32,28 +30,12 @@ public class Usuario {
     this.email = email;
   }
 
-  public String getSenha() {
-    return this.senha;
+  public String getPassword() {
+    return this.password;
   }
 
-  public void setSenha(String senha) {
-    this.senha = senha;
+  public void setPassword(String password) {
+    this.password = password;
   }
-
-  public String getNascimento() {
-    return this.nascimento;
-  }
-
-  public void setNascimento(String nascimento) {
-    this.nascimento = nascimento;
-  }
-
-  public String getSexo() {
-    return this.sexo;
-  }
-
-  public void setSexo(String sexo) {
-    this.sexo = sexo;
-  } 
   
 }

@@ -5,53 +5,48 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
 
+  <filter>
+    <filter-name>CorsFilter</filter-name>
+    <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CorsFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
   <servlet>
     <servlet-name>ControllerUsuarioServlet</servlet-name>
     <servlet-class>controllers.ControllerUsuario</servlet-class>
-  </servlet>
-
-  <servlet>
-    <servlet-name>ControllerCategoriaServlet</servlet-name>
-    <servlet-class>controllers.ControllerCategoria</servlet-class>
-  </servlet>
+  </servlet>  
 
   <servlet>
     <servlet-name>ControllerProdutoServlet</servlet-name>
     <servlet-class>controllers.ControllerProduto</servlet-class>
-  </servlet>
+  </servlet> 
 
   <servlet>
-    <servlet-name>ControllerUsersServlet</servlet-name>
-    <servlet-class>controllers.mongoControllers.ControllerUsers</servlet-class>
-  </servlet>
-
-  <servlet>
-    <servlet-name>ControllerProductsServlet</servlet-name>
-    <servlet-class>controllers.mongoControllers.ControllerProducts</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>ControllerUsuarioServlet</servlet-name>
-    <url-pattern>/usuario</url-pattern>
-  </servlet-mapping>    
-
-  <servlet-mapping>
-    <servlet-name>ControllerCategoriaServlet</servlet-name>
-    <url-pattern>/categoria</url-pattern>
-  </servlet-mapping>
+    <servlet-name>ControllerOrderServlet</servlet-name>
+    <servlet-class>controllers.mongoControllers.ControllerOrder</servlet-class>
+  </servlet>    
 
   <servlet-mapping>
     <servlet-name>ControllerProdutoServlet</servlet-name>
-    <url-pattern>/produto</url-pattern>
+    <url-pattern>/api/products</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
     <servlet-name>ControllerUsersServlet</servlet-name>
-    <url-pattern>/users</url-pattern>
+    <url-pattern>/register</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>ControllerProductsServlet</servlet-name>
-    <url-pattern>/products</url-pattern>
+    <servlet-name>ControllerSignInServlet</servlet-name>
+    <url-pattern>/signin</url-pattern>
   </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ControllerOrderServlet</servlet-name>
+    <url-pattern>/api/orders</url-pattern>
+  </servlet-mapping>
+    
 </web-app>

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import dao.ProdutoDao;
-import model.Categoria;
 import model.Produto;
 import utils.Json;
 
@@ -23,11 +22,19 @@ public class ControllerProduto extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+        resp.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    }
+
+    @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
-            throws ServletException, IOException {
+            throws ServletException, IOException {                
 
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
+        resp.setHeader("Access-Control-Allow-Origin", "*");
 
         final PrintWriter saida = resp.getWriter();
         final ProdutoDao dao = new ProdutoDao();
@@ -36,11 +43,25 @@ public class ControllerProduto extends HttpServlet {
 
         List<Produto> lstProd = new ArrayList<>();
 
-        try {
-            lstProd = dao.pesquisar();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+      
+
+        if ( req.getParameter("ProductId") != null) {
+            try {
+                int id = Integer.parseInt(req.getParameter("ProductId"));  
+                lstProd = dao.pesquisar(id);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+          } if ((req.getParameter("category") != null))  {
+            try {        
+              String cat = req.getParameter("category");                         
+              lstProd = dao.pesquisarId(cat);              
+              System.out.println("Produto listado com sucesso!");
+            } catch (Exception e) {
+              e.printStackTrace();
+              System.out.println("Erro ao listar produto!");
+            }
+          }
 
         for (Produto prod : lstProd) {
             produtoJsonStr += gson.toJson(prod);
@@ -57,19 +78,7 @@ public class ControllerProduto extends HttpServlet {
         resp.setHeader("Access-Control-Allow-Origin", "*");
 
         String json = Json.getJsonFromRequestBody(req.getReader());
-        Produto prod = Json.parseJsonToObject(json, Produto.class);
-        // Categoria cat = Json.parseJsonToObject(json, Categoria.class);
-        /*
-         * Produto prod = new Produto(); Categoria cat = new Categoria();
-         * 
-         * cat.setIdCategoria(Integer.parseInt(req.getParameter("idCategoria")));
-         * prod.setCategoria(cat);
-         * prod.setPreco(Double.parseDouble(req.getParameter("preco")));
-         * prod.setNome(req.getParameter("nome"));
-         * prod.setImagem(req.getParameter("imagem"));
-         * prod.setQuantidade(Integer.parseInt(req.getParameter("quantidade")));
-         * prod.setProdDescricao(req.getParameter("prodDescricao"));
-         */
+        Produto prod = Json.parseJsonToObject(json, Produto.class);        
 
         ProdutoDao pd = new ProdutoDao();
 
@@ -85,7 +94,8 @@ public class ControllerProduto extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final ProdutoDao pd = new ProdutoDao();
-        int prod = Integer.parseInt(req.getParameter("idProduto"));
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        int prod = Integer.parseInt(req.getParameter("ProductId"));
 
         try {
             pd.deletar(prod);
@@ -98,17 +108,19 @@ public class ControllerProduto extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Produto prod = new Produto();
-        Categoria cat = new Categoria();
-
-        cat.setIdCategoria(Integer.parseInt(req.getParameter("idCategoria")));
-        prod.setCategoria(cat);
-        prod.setPreco(Double.parseDouble(req.getParameter("preco")));
-        prod.setNome(req.getParameter("nome"));
-        prod.setImagem(req.getParameter("imagem"));
-        prod.setQuantidade(Integer.parseInt(req.getParameter("quantidade")));
-        prod.setProdDescricao(req.getParameter("prodDescricao"));
-        prod.setIdProduto(Integer.parseInt(req.getParameter("idProduto")));
+        Produto prod = new Produto();       
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        
+        prod.setProductId(Integer.parseInt(req.getParameter("ProductId")));
+        prod.setName(req.getParameter("name"));
+        prod.setImage(req.getParameter("image"));
+        prod.setBrand(req.getParameter("brand"));
+        prod.setPrice(Integer.parseInt(req.getParameter("price")));
+        prod.setCategory(req.getParameter("category"));
+        prod.setCountInStock(Integer.parseInt(req.getParameter("countInStock")));
+        prod.setDescription(req.getParameter("description"));
+        prod.setRating(Double.parseDouble(req.getParameter("rating")));
+        prod.setNumReviews(Integer.parseInt(req.getParameter("numReviews")));
 
         ProdutoDao pd = new ProdutoDao();
 

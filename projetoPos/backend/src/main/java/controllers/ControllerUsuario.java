@@ -25,6 +25,7 @@ public class ControllerUsuario extends HttpServlet {
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
             throws ServletException, IOException {
 
+        resp.setHeader("Access-Control-Allow-Origin", "*");
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
 
@@ -36,8 +37,9 @@ public class ControllerUsuario extends HttpServlet {
         List<Usuario> lstUser = new ArrayList<>();
 
         try {
-            int pessoa = Integer.parseInt(req.getParameter("cpf"));
-            lstUser = dao.pesquisar(pessoa);
+            String pessoa = req.getParameter("email");
+            String password = req.getParameter("password");
+            lstUser = dao.pesquisar(pessoa, password);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -53,8 +55,15 @@ public class ControllerUsuario extends HttpServlet {
     }
 
     @Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+        resp.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");  
         resp.setHeader("Access-Control-Allow-Origin", "*");
 
         String json = Json.getJsonFromRequestBody(req.getReader());
@@ -73,7 +82,8 @@ public class ControllerUsuario extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final UsuarioDao ud = new UsuarioDao();
-        int pessoa = Integer.parseInt(req.getParameter("cpf"));
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        int pessoa = Integer.parseInt(req.getParameter("id"));
 
         try {
             ud.deletar(pessoa);
@@ -86,15 +96,14 @@ public class ControllerUsuario extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setHeader("Access-Control-Allow-Origin", "*");
         UsuarioDao ud = new UsuarioDao();
         Usuario user = new Usuario();
 
-        user.setNome(req.getParameter("nome"));
+        user.setName(req.getParameter("name"));
         user.setEmail(req.getParameter("email"));
-        user.setSenha(req.getParameter("senha"));
-        user.setNascimento(req.getParameter("nascimento"));
-        user.setSexo(req.getParameter("sexo"));
-        user.setCpf(Integer.parseInt(req.getParameter("cpf")));
+        user.setPassword(req.getParameter("password"));         
+        user.setId(Integer.parseInt(req.getParameter("id")));
 
         try {
             ud.alterar(user);
